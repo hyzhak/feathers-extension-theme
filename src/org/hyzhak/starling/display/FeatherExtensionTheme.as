@@ -1,6 +1,7 @@
 package org.hyzhak.starling.display
 {
 	import feathers.core.DisplayListWatcher;
+	import feathers.display.Image;
 	import feathers.skins.IFeathersTheme;
 	import feathers.system.DeviceCapabilities;
 	
@@ -23,22 +24,22 @@ package org.hyzhak.starling.display
 		public function FeatherExtensionTheme(root:DisplayObjectContainer, scaleToDPI:Boolean = true)
 		{
 			super(root)
-			this._scaleToDPI = scaleToDPI;
-			this.initialize();
+			_scaleToDPI = scaleToDPI;
+			initialize();
 		}
 		
 		protected var _originalDPI:int;
 		
 		public function get originalDPI():int
 		{
-			return this._originalDPI;
+			return _originalDPI;
 		}
 		
 		protected var _scaleToDPI:Boolean;
 		
 		public function get scaleToDPI():Boolean
 		{
-			return this._scaleToDPI;
+			return _scaleToDPI;
 		}
 		
 		//--------------------------------------------------------------------------
@@ -51,24 +52,41 @@ package org.hyzhak.starling.display
 		
 		protected var atlas:TextureAtlas;
 		
+		private var knobControlBg:Texture;
+		private var knobControlButton:Texture;
+		private var knobControlButtonHotspot:Texture;
+		
 		protected function initialize():void
 		{
-			this._originalDPI = DeviceCapabilities.dpi;
-			if(this._scaleToDPI)
+			_originalDPI = DeviceCapabilities.dpi;
+			if(_scaleToDPI)
 			{
 				if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
 				{
-					this._originalDPI = ORIGINAL_DPI_IPAD_RETINA;
+					_originalDPI = ORIGINAL_DPI_IPAD_RETINA;
 				}
 				else
 				{
-					this._originalDPI = ORIGINAL_DPI_IPHONE_RETINA;
+					_originalDPI = ORIGINAL_DPI_IPHONE_RETINA;
 				}
 			}
 			
-			this.scale = DeviceCapabilities.dpi / this._originalDPI;
+			scale = DeviceCapabilities.dpi / _originalDPI;
 			
-			this.atlas = new TextureAtlas(Texture.fromBitmap(new ATLAS_IMAGE(), false), XML(new ATLAS_XML()));
+			atlas = new TextureAtlas(Texture.fromBitmap(new ATLAS_IMAGE(), false), XML(new ATLAS_XML()));
+			
+			knobControlBg = atlas.getTexture("knob-control-bg");
+			knobControlButton = atlas.getTexture("knob-control-button");
+			knobControlButtonHotspot = atlas.getTexture("knob-control-button-hotspot");
+			
+			setInitializerForClass(KnobControl, knobInitializer);
+		}
+		
+		private function knobInitializer(knob:KnobControl):void
+		{
+			knob.backgroundSkin = new Image(knobControlBg);
+			knob.buttonSkin = new Image(knobControlButton);
+			knob.buttonHotspotSkin = new Image(knobControlButtonHotspot);
 		}
 	}
 }
