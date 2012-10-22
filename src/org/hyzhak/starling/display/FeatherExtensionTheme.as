@@ -84,9 +84,20 @@ package org.hyzhak.starling.display
 		
 		private function knobInitializer(knob:KnobControl):void
 		{
-			knob.backgroundSkin = new Image(knobControlBg);
-			knob.buttonSkin = new Image(knobControlButton);
-			knob.buttonHotspotSkin = new Image(knobControlButtonHotspot);
+			var backgroundSkin:Image = new Image(knobControlBg);
+			backgroundSkin.scaleX = scale;
+			backgroundSkin.scaleY = scale;
+			knob.backgroundSkin = backgroundSkin;
+			
+			var buttonSkin:Image = new Image(knobControlButton);
+			buttonSkin.scaleX = scale;
+			buttonSkin.scaleY = scale;
+			knob.buttonSkin = buttonSkin
+				
+			var buttonHotspotSkin:Image = new Image(knobControlButtonHotspot);
+			buttonHotspotSkin.scaleX = scale;
+			buttonHotspotSkin.scaleY = scale;
+			knob.buttonHotspotSkin = buttonHotspotSkin;
 		}
 	}
 }
