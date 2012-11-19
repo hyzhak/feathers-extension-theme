@@ -9,6 +9,7 @@ package org.hyzhak.starling.display
 	import starling.display.DisplayObjectContainer;
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
+	import org.hyzhak.starling.display.knob.KnobControl;
 	
 	public class FeatherExtensionTheme extends DisplayListWatcher implements IFeathersTheme
 	{
@@ -89,10 +90,10 @@ package org.hyzhak.starling.display
 			backgroundSkin.scaleY = scale;
 			knob.backgroundSkin = backgroundSkin;
 			
-			var buttonSkin:Image = new Image(knobControlButton);
-			buttonSkin.scaleX = scale;
-			buttonSkin.scaleY = scale;
-			knob.buttonSkin = buttonSkin
+			var knobSkin:Image = new Image(knobControlButton);
+			knobSkin.scaleX = scale;
+			knobSkin.scaleY = scale;
+			knob.knobSkin = knobSkin
 				
 			var buttonHotspotSkin:Image = new Image(knobControlButtonHotspot);
 			buttonHotspotSkin.scaleX = scale;
